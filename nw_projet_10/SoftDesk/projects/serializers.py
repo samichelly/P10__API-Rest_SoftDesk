@@ -14,17 +14,17 @@ class ContributorSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        # fields = "__all__"
+        fields = "__all__"
 
-        fields = [
-            "id",
-            "author",
-            "title",
-            #     "description",
-            #     "project_type",
-            #     "created_time",
-            #     "contributors",  # Ajoutez le champ des contributeurs
-        ]
+        # fields = [
+        #     "id",
+        #     "author",
+        #     "title",
+        #     "description",
+        #     "project_type",
+        #     "created_time",
+        #     "contributors",  # Ajoutez le champ des contributeurs
+        # ]
 
 
 """

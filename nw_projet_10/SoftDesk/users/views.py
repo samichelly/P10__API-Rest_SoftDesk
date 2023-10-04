@@ -29,10 +29,7 @@ class SignupView(generics.CreateAPIView):
 
 class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
-        # Votre logique de connexion ici
-
-        # Si la connexion est réussie, redirigez l'utilisateur vers "projects" (changez le nom d'URL si nécessaire)
-        # if connexion_reussie:
+        permission_classes = [AllowAny]
         return redirect(reverse("project-list"))
 
         # Si la connexion échoue, vous pouvez gérer le cas d'erreur ici

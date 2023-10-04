@@ -14,6 +14,7 @@ router = routers.DefaultRouter()
 urlpatterns = [
     # path("admin/", admin.site.urls),
     path('projects/', views.project_list, name='project-list'),
+    path('api/projects/create/', views.ProjectCreateView.as_view(), name='project-create'),
     # path("comments/", views.CommentViewSet.as_view(), name="comment-list"),
 ]
 
