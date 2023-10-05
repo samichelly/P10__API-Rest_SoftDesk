@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from rest_framework import routers
 from projects import views
 
@@ -7,14 +8,25 @@ from projects import views
 #  simplifier les path
 router = routers.DefaultRouter()
 # router.register(r"users", views.CustomUserViewSet)
-# router.register(r"projects", views.ProjectViewSet)
-# router.register(r"issues", views.IssueViewSet)
-# router.register(r"comments", views.CommentViewSet)
+router.register(r"projects", views.ProjectViewSet)
+router.register(r"issues", views.IssueViewSet)
+router.register(r"comments", views.CommentViewSet)
 
 urlpatterns = [
     # path("admin/", admin.site.urls),
-    path('projects/', views.project_list, name='project-list'),
-    path('api/projects/create/', views.ProjectCreateView.as_view(), name='project-create'),
+    path("api/", include(router.urls)),
+
+    # path("projects/", views.project_list, name="project-list"),
+    # path(
+    #     "api/projects/create/", views.ProjectCreateView.as_view(), name="project-create"
+    # ),
+    # path(
+    #     "api/projects/<int:pk>/update/",
+    #     views.ProjectUpdateView.as_view(),
+    #     name="project-update",
+    # ),
+    # path("issues/", views.IssueListView.as_view(), name="issue-list"),
+    # path("issues/create/", views.IssueCreateView.as_view(), name="issue-create"),
     # path("comments/", views.CommentViewSet.as_view(), name="comment-list"),
 ]
 

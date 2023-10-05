@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
-from projects.models import Project
+from projects.models import Project, Contributor, Issue, Comment
 
 
 class CustomUserAdmin(UserAdmin):
@@ -31,10 +31,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
-
-
-class ProjectsAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "author",
         "title",
@@ -60,4 +57,41 @@ class ProjectsAdmin(admin.ModelAdmin):
     # )
 
 
-admin.site.register(Project, ProjectsAdmin)
+class ContributorAdmin(admin.ModelAdmin):
+    list_display = (
+        "project",
+        "user",
+        "role",
+        # "contributed_projects",
+    )
+
+
+class IssueAdmin(admin.ModelAdmin):
+    list_display = (
+        "project",
+        "author",
+        "assigned_to",
+        "title",
+        "description",
+        "priority",
+        "tag",
+        "status",
+        "created_time",
+    )
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        "issue",
+        "author",
+        "description",
+        # "project_type",
+        "created_time",
+    )
+
+
+admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(Contributor, ContributorAdmin)
+admin.site.register(Issue, IssueAdmin)
+admin.site.register(Comment, CommentAdmin)

@@ -38,22 +38,19 @@ class Contributor(models.Model):
     role = models.CharField(choices=ROLE, max_length=200)
 
 
-"""
-
-
 class Issue(models.Model):
     # Relation ManyToOne betwween Project and Issue
 
-    # project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     assigned_to = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="contributor_issue"
     )
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, blank=True)
-    # priority = models.TextChoices(choices=PRIORITY)
-    # tag = models.TextChoices(choices=TAG)
-    # status = models.TextChoices(choices=STATUS, default="TO DO")
+    priority = models.CharField(choices=PRIORITY, max_length=200)
+    tag = models.CharField(choices=TAG, max_length=200)
+    status = models.CharField(choices=STATUS, default="TO DO", max_length=200)
     created_time = models.DateTimeField(auto_now_add=True)
 
 
@@ -64,5 +61,3 @@ class Comment(models.Model):
     description = models.TextField(max_length=2048)
     # id_comment = models.UUIDField(auto_created=True)
     created_time = models.DateTimeField(auto_now_add=True)
-
-"""

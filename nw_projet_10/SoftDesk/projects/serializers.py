@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, Project
+from .models import CustomUser, Project, Issue, Comment
 
 
 # from .models import Issue, Comment
@@ -27,9 +27,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         # ]
 
 
-"""
-
-
 class IssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
@@ -51,4 +48,3 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ["id", "issue", "author", "description", "created_time"]
-"""
