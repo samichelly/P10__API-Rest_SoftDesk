@@ -1,15 +1,77 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Project, Contributor, Issue, Comment
-from .serializers import ProjectSerializer, IssueSerializer, CommentSerializer
+from .serializers import (
+    ProjectSerializer,
+    IssueSerializer,
+    CommentSerializer,
+    ContributorSerializer,
+)
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
+
+CustomUser = get_user_model()
 
 
+class ProjectView(APIView):  # voir différence entre APIView et ModelViewSet
+    permission_classes = (IsAuthenticated,)  # [IsAuthenticated, + permissions]
+    # queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+    def get(self, request):
+        projects = Project.objects.all()
+
+    def post(self, request):
+        projects = Project.objects.all()
+
+    def put(self, request):
+        projects = Project.objects.all()
+
+    def delete(self, request):
+        projects = Project.objects.all()
+
+
+class IssueView(APIView):
+    # permission_classes = (IsAuthenticated,)
+    # queryset = Issue.objects.all()
+    serializer_class = IssueSerializer
+
+    def get(self, request):
+        issues = Issue.objects.all()
+        return Response("test1")
+
+    def post(self, request):
+        issues = Issue.objects.all()
+        return Response("test2")
+
+    def put(self, request):
+        issues = Issue.objects.all()
+        return Response("test3")
+
+    def delete(self, request):
+        issues = Issue.objects.all()
+        return Response("test4")
+
+
+class CommentView(APIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class ContributorView(APIView):
+    queryset = Contributor.objects.all()
+    serializer_class = ContributorSerializer
+
+
+"""
 @api_view(["GET", "POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def project_list(request):
     if request.method == "GET":
         projects = Project.objects.all()
@@ -24,24 +86,7 @@ def project_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
-
-
-class IssueViewSet(viewsets.ModelViewSet):
-    queryset = Issue.objects.all()
-    serializer_class = IssueSerializer
-
-
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-
-"""
-
-
+        
 # USERS
 class CustomUserListView(generics.ListAPIView):
     queryset = Custom_User.objects.all()
@@ -127,9 +172,6 @@ class CommentDeleteView(generics.DestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-"""
-
-"""
 # ViewSets
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()

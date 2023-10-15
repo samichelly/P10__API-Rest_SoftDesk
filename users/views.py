@@ -20,20 +20,6 @@ class SignupView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return redirect(
-                "/login/"
-            )  # Rediriger vers la page '/token/' après une inscription réussie
+            return redirect("/login/")
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LoginView(TokenObtainPairView):
-    def post(self, request, *args, **kwargs):
-        permission_classes = [AllowAny]
-        return redirect(reverse("project-list"))
-
-        # Si la connexion échoue, vous pouvez gérer le cas d'erreur ici
-
-        return super().post(
-            request, *args, **kwargs
-        )  # Continuez le traitement normal si la connexion échoue

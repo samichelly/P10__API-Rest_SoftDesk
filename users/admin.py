@@ -87,6 +87,7 @@ class CommentAdmin(admin.ModelAdmin):
         "description",
         # "project_type",
         "created_time",
+        "id_comment",
     )
 
 

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+import uuid
+
 
 CustomUser = get_user_model()
 
@@ -59,5 +61,5 @@ class Comment(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     description = models.TextField(max_length=2048)
-    # id_comment = models.UUIDField(auto_created=True)
+    id_comment = models.UUIDField(default=uuid.uuid4, editable=False)
     created_time = models.DateTimeField(auto_now_add=True)
