@@ -24,10 +24,28 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("signup/", SignupView.as_view(), name="signup"),
     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/projects/", views.ProjectView.as_view(), name="project-list"),
-    path("api/projects/<int:pk>/", views.ProjectView.as_view(), name="project-detail"),
-    path("api/issues/", views.IssueView.as_view(), name="issue-list"),
-    path("api/issues/<int:pk>/", views.IssueView.as_view(), name="issue-detail"),
-    path("api/comments/", views.IssueView.as_view(), name="comment-list"),
-    path("api/comments/<int:pk>/", views.IssueView.as_view(), name="comment-detail"),
+    # path("api/projects/", views.ProjectView.as_view(), name="project-list"),
+    # path("api/projects/<int:pk>/", views.ProjectView.as_view(), name="project-detail"),
+    # path("api/issues/", views.IssueView.as_view(), name="issue-list"),
+    # path("api/issues/<int:pk>/", views.IssueView.as_view(), name="issue-detail"),
+    # path("api/comments/", views.IssueView.as_view(), name="comment-list"),
+    # path("api/comments/<int:pk>/", views.IssueView.as_view(), name="comment-detail"),
+
+
+    # Vues pour les projets
+    path('projects/', views.project_list, name='project-list'),
+    path('projects/<int:project_pk>/', views.project_detail, name='project-detail'),
+    
+    # Vues pour les contributeurs
+    path('projects/<int:project_pk>/contributors/', views.contributor_list, name='contributor-list'),
+    path('projects/<int:project_pk>/contributors/<int:contributor_pk>/', views.contributor_detail, name='contributor-detail'),
+    
+    # Vues pour les problèmes (issues)
+    path('projects/<int:project_pk>/issues/', views.issue_list, name='issue-list'),
+    path('projects/<int:project_pk>/issues/<int:issue_pk>/', views.issue_detail, name='issue-detail'),
+    
+    # Vues pour les commentaires
+    path('projects/<int:project_pk>/issues/<int:issue_pk>/comments/', views.comment_list, name='comment-list'),
+    path('projects/<int:project_pk>/issues/<int:issue_pk>/comments/<int:comment_pk>/', views.comment_detail, name='comment-detail'),
+
 ]
