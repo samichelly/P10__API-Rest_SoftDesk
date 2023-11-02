@@ -1,11 +1,8 @@
-from django.contrib.auth import get_user_model
+from .models import CustomUser
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from datetime import date
-
-
-CustomUser = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -27,6 +24,8 @@ class SignupSerializer(serializers.ModelSerializer):
         fields = (
             "username",
             "email",
+            "first_name",
+            "last_name",
             "password",
             "password2",
             "date_of_birth",
@@ -37,7 +36,7 @@ class SignupSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs["password"] != attrs["password2"]:
             raise serializers.ValidationError(
-                {"password": "Password fields did not match."}
+                {"password": "The passwords do not match."}
             )
 
         date_of_birth = attrs["date_of_birth"]
@@ -59,6 +58,8 @@ class SignupSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create_user(
             username=validated_data["username"],
             email=validated_data["email"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
             date_of_birth=validated_data["date_of_birth"],
             can_be_contacted=validated_data["can_be_contacted"],
             can_data_be_shared=validated_data["can_data_be_shared"],
@@ -67,3 +68,17 @@ class SignupSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "can_be_contacted",
+            "can_data_be_shared",
+        )

@@ -1,9 +1,12 @@
+from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .views import SignupView, LoginView
+from . import views
 
 urlpatterns = [
-    path("signup/", SignupView.as_view(), name="signup"),
-    # path("login/", LoginView.as_view()),
-    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("admin/", admin.site.urls),
+    path("signup/", views.SignupView.as_view()),
+    path("login/", TokenObtainPairView.as_view()),
+    path("profile/", views.users_list),
+    path("profile/<int:user_pk>/", views.user_detail),
 ]
