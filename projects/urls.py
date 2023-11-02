@@ -1,25 +1,18 @@
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from rest_framework import routers
-from projects import views
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
+from . import views
 
-#  simplifier les path
-# router = routers.DefaultRouter()
-# router.register(r"users", views.CustomUserViewSet)
-# router.register(r"projects", views.ProjectView)
-# router.register(r"issues", views.IssueView)
-# router.register(r"comments", views.CommentView)
 
 urlpatterns = [
-    # path("api/", include(router.urls)),
-    # path("api/projects/", views.ProjectView.as_view(), name="project-list"),
-    # path("api/projects/<int:pk>/", views.ProjectView.as_view(), name="project-detail"),
-    # path("api/issues/", views.IssueView.as_view(), name="issue-list"),
-    # path("api/issues/<int:pk>/", views.IssueView.as_view(), name="issue-detail"),
-    # path("api/comments/", views.IssueView.as_view(), name="comment-list"),
-    # path("api/comments/<int:pk>/", views.IssueView.as_view(), name="comment-detail"),
+    path('', views.project_list),
+    path('<int:project_pk>/', views.project_detail),
+    path('<int:project_pk>/users/', views.contributor_list),
+    path('<int:project_pk>/users/<int:contributor_pk>/', views.contributor_detail),
+    path('<int:project_pk>/issues/', views.issue_list),
+    path('<int:project_pk>/issues/<int:issue_pk>/', views.issue_detail),
+    path('<int:project_pk>/issues/<int:issue_pk>/comments/', views.comment_list),
+    path('<int:project_pk>/issues/<int:issue_pk>/comments/<int:comment_pk>/', views.comment_detail),
 ]
 
-# urlpatterns += router.urls
+urlpatterns = format_suffix_patterns(urlpatterns)

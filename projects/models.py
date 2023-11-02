@@ -1,9 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth import get_user_model
 import uuid
-
-
-CustomUser = get_user_model()
 
 
 TYPE = [
@@ -22,44 +19,39 @@ TAG = [("BUG", "BUG"), ("TASK", "TASK"), ("UPGRADE", "UPGRADE")]
 STATUS = [("TODO", "TODO"), ("IN PROGRESS", "IN PROGRESS"), ("DONE", "DONE")]
 
 
-# project - Contributor -> ManyToMany
 class Project(models.Model):
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField(max_length=2000)
-    project_type = models.CharField(choices=TYPE, max_length=200)
-    created_time = models.DateTimeField(auto_now_add=True)
-    contributors = models.ManyToManyField(
-        CustomUser, through="Contributor", related_name="contributed_projects"
+    title = models.CharField(max_length=128)
+    author = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author"
     )
+    description = models.TextField(max_length=2048)
+    type = models.CharField(choices=TYPE, max_length=8)
+    created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Contributor(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    role = models.CharField(choices=ROLE, max_length=200)
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        to=Project, on_delete=models.CASCADE, related_name="contributors"
+    )
+    role = models.CharField(max_length=11, choices=ROLE, default="CONTRIBUTOR")
 
 
 class Issue(models.Model):
-    # Relation ManyToOne betwween Project and Issue
-
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    assigned_to = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, related_name="contributor_issue"
-    )
     title = models.CharField(max_length=128)
-    description = models.TextField(max_length=2048, blank=True)
-    priority = models.CharField(choices=PRIORITY, max_length=200)
-    tag = models.CharField(choices=TAG, max_length=200)
-    status = models.CharField(choices=STATUS, default="TO DO", max_length=200)
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(to=Contributor, on_delete=models.CASCADE)
+    description = models.TextField(max_length=2048)
+    tag = models.CharField(choices=TAG, max_length=7)
+    priority = models.CharField(choices=PRIORITY, max_length=6, default="LOW")
+    status = models.CharField(choices=STATUS, max_length=11, default="TODO")
+    project = models.ForeignKey(to=Project, on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
-    # Relation ManyToOne between Issue and Comment
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    issue = models.ForeignKey(to=Issue, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField(max_length=2048)
     id_comment = models.UUIDField(default=uuid.uuid4, editable=False)
     created_time = models.DateTimeField(auto_now_add=True)
