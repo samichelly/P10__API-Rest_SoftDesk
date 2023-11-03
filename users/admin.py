@@ -13,10 +13,10 @@ class CustomUserAdmin(UserAdmin):
         "last_name",
         "date_of_birth",
         "is_superuser",
+        "is_active",
         "can_be_contacted",
         "can_data_be_shared",
         "password",
-        # "custom_is_superuser",
     )
 
 

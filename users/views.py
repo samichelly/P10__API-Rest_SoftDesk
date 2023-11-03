@@ -60,14 +60,22 @@ def user_detail(request, user_pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == "DELETE":
+        print("test")
         projects_to_reassign = Project.objects.filter(author=user)
         issues_to_reassign = Issue.objects.filter(author=user)
-
+        print("projects_to_reassign")
+        print(projects_to_reassign)
+        print("issues_to_reassign")
+        print(issues_to_reassign)
         new_author = None
+        new_issue_author = False
+
         for project in projects_to_reassign:
             new_author = Contributor.objects.filter(
                 project=project, role="CONTRIBUTOR"
             ).first()
+            print("new_author")
+            print(new_author)
             if new_author:
                 new_author.role = "AUTHOR"
                 new_author.save()
@@ -75,22 +83,26 @@ def user_detail(request, user_pk):
                 project.save()
 
         for issue in issues_to_reassign:
-            # Vérifie si l'auteur de l'issue n'est pas l'auteur du projet
+            print("issue1")
+            # print(new_author)
             if issue.project.author != user:
                 issue.author = issue.project.author
+                new_issue_author = True
                 issue.save()
-            else:  # Affecte le nouveau contributeur s'il existe
+            else:
                 if new_author:
+                    print("issue2")
                     issue.author = new_author.user
                     issue.save()
 
-        if new_author:
-            user.username = "data unavailable"
-            user.email = "data unavailable"
+        if new_author or new_issue_author:
+            print("gomme")
             user.date_of_birth = None
             user.can_be_contacted = False
             user.can_data_be_shared = False
+            user.is_active = False
             user.save()
+            print("gomme OK")
             return Response(
                 "Profile soft deleted, new author assigned",
                 status=status.HTTP_204_NO_CONTENT,
