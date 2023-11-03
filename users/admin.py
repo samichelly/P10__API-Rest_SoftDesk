@@ -26,9 +26,6 @@ class ProjectAdmin(admin.ModelAdmin):
         "author",
         "title",
         "description",
-        # "project_type",
-        # "created_time",
-        # "contributors",
     )
 
 
@@ -38,7 +35,6 @@ class ContributorAdmin(admin.ModelAdmin):
         "project",
         "user",
         "role",
-        # "contributed_projects",
     )
 
 
@@ -47,9 +43,9 @@ class IssueAdmin(admin.ModelAdmin):
         "id",
         "project",
         "author",
-        # "assigned_to",
+        "assigned_to",
         "title",
-        # "description",
+        "description",
         "priority",
         "tag",
         "status",
@@ -59,12 +55,12 @@ class IssueAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "issue",
         "author",
         "description",
-        # "project_type",
+        "id_comment",
         "created_time",
-        # "id_comment",
     )
 
 
