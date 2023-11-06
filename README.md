@@ -73,7 +73,7 @@ python manage.py runserver
 Il est possible de naviguer dans l'API avec différents outils :
 
 - la plateforme [Postman](https://www.postman.com/) ;
-- l'interface intégrée Django REST framework à l'adresse http://127.0.0.1:8000/ (adresse par défaut, cf. points de terminaison ci-dessous).
+- l'interface intégrée Django REST framework à l'adresse http://127.0.0.1:8000/ (adresse par défaut, cf. documentation pour les points de terminaisons).
 
 ## Informations
 
