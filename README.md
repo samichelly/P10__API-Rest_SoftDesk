@@ -19,7 +19,7 @@ Dans Windows Powershell, naviguer vers le dossier souhaité.
 ###### • Récupération du projet
 
 ```
-https://github.com/samichelly/P10__API-Rest_SoftDesk.git
+git clone https://github.com/samichelly/P10__API-Rest_SoftDesk.git
 ```
 
 ###### • Activer l'environnement virtuel
@@ -41,7 +41,7 @@ pip install -r requirements.txt
 Dans le terminal, naviguer vers le dossier souhaité.
 ###### • Récupération du projet
 ```
-https://github.com/samichelly/P10__API-Rest_SoftDesk.git
+git clone https://github.com/samichelly/P10__API-Rest_SoftDesk.git
 ```
 
 ###### • Activer l'environnement virtuel
