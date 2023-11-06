@@ -99,7 +99,6 @@ def contributor_list(request, project_pk):
     if request.method == "GET":
         # List contributors within the project.
         contributors = Contributor.objects.filter(project=project)
-        print("get")
         serializer = ContributorSerializer(contributors, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
