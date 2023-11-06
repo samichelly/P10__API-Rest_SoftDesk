@@ -1,7 +1,5 @@
 # Projet 10
 
-***Livrable du Projet 10 du parcours D-A Python d'OpenClassrooms***
-
 API-SoftDesk est une API RESTful permettant de remonter et suivre des problèmes 
 techniques pour les trois plateformes (site web, applications Android et iOS).
 
@@ -13,7 +11,6 @@ de créer des problèmes au sein des projets et d'attribuer des libellés
 Pour plus de détails sur le fonctionnement de cette API, se référer à sa 
 [documentation](https://documenter.getpostman.com/view/29787301/2s9YXfc47N) (Postman).
 
-_Testé sous Windows 10 - Python 3.9.5 - Django 4.0.1 - DRF 3.13.1_
 
 ## Initialisation du projet
 
