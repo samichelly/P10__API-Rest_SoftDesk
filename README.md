@@ -1,4 +1,4 @@
-# Projet 10 DA-Python OC (Hélène Mignon)
+# Projet 10
 
 ***Livrable du Projet 10 du parcours D-A Python d'OpenClassrooms***
 
@@ -11,7 +11,7 @@ de créer des problèmes au sein des projets et d'attribuer des libellés
 à ces problèmes en fonction de leurs priorités, de balises, etc.
 
 Pour plus de détails sur le fonctionnement de cette API, se référer à sa 
-[documentation](https://documenter.getpostman.com/view/19098124/UVe9SpoZ) (Postman).
+[documentation](https://documenter.getpostman.com/view/29787301/2s9YXfc47N) (Postman).
 
 _Testé sous Windows 10 - Python 3.9.5 - Django 4.0.1 - DRF 3.13.1_
 
@@ -22,13 +22,13 @@ Dans Windows Powershell, naviguer vers le dossier souhaité.
 ###### • Récupération du projet
 
 ```
-git clone https://github.com/hmignon/P10_mignon_helene.git
+https://github.com/samichelly/P10__API-Rest_SoftDesk.git
 ```
 
 ###### • Activer l'environnement virtuel
 
 ```
-cd P10_mignon_helene 
+cd P10__API-Rest_SoftDesk 
 python -m venv env 
 env\Scripts\activate
 ```
@@ -44,12 +44,12 @@ pip install -r requirements.txt
 Dans le terminal, naviguer vers le dossier souhaité.
 ###### • Récupération du projet
 ```
-git clone https://github.com/hmignon/P10_mignon_helene.git
+https://github.com/samichelly/P10__API-Rest_SoftDesk.git
 ```
 
 ###### • Activer l'environnement virtuel
 ```
-cd P10_mignon_helene 
+cd P10__API-Rest_SoftDesk 
 python3 -m venv env 
 source env/bin/activate
 ```
@@ -76,7 +76,6 @@ python manage.py runserver
 Il est possible de naviguer dans l'API avec différents outils :
 
 - la plateforme [Postman](https://www.postman.com/) ;
-- l'outil de commandes [cURL](https://curl.se) ;
 - l'interface intégrée Django REST framework à l'adresse http://127.0.0.1:8000/ (adresse par défaut, cf. points de terminaison ci-dessous).
 
 ## Informations
@@ -85,12 +84,13 @@ Il est possible de naviguer dans l'API avec différents outils :
 
 | *ID* | *Identifiant* | *Mot de passe* |
 |------|---------------|----------------|
-| 1    | testuser      | password321    |
-| 3    | user_2        | password321    |
-| 4    | new_user      | password321    |
+| 2    | user_1        | password890    |
+| 3    | user_2        | password890    |
+| 4    | New_user_test | password890    |
+| 10   | user_10       | password890    |
 
 
-#### Liste des points de terminaison de l'API (détaillés dans la [documentation](https://documenter.getpostman.com/view/19098124/UVe9SpoZ)) :
+#### Liste des points de terminaison de l'API (détaillés dans la [documentation](https://documenter.getpostman.com/view/29787301/2s9YXfc47N)) :
 
 | #   | *Point de terminaison d'API*                                              | *Méthode HTTP* | *URL (base: http://127.0.0.1:8000)*       |
 |-----|---------------------------------------------------------------------------|----------------|-------------------------------------------|
