@@ -1,4 +1,4 @@
-# Projet 10
+# API REST - SoftDesk
 
 API-SoftDesk est une API RESTful permettant de remonter et suivre des problèmes 
 techniques pour les trois plateformes (site web, applications Android et iOS).
