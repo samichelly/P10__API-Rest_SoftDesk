@@ -59,42 +59,48 @@ def user_detail(request, user_pk):
         projects_to_reassign = Project.objects.filter(author=user)
         issues_to_reassign = Issue.objects.filter(author=user)
 
-        new_author = None
-        new_issue_author = False
+        user.date_of_birth = None
+        user.can_be_contacted = False
+        user.can_data_be_shared = False
+        user.is_active = False
 
-        for project in projects_to_reassign:
-            new_author = Contributor.objects.filter(
-                project=project, role="CONTRIBUTOR"
-            ).first()
-            if new_author:
-                new_author.role = "AUTHOR"
-                new_author.save()
-                project.author = new_author.user
-                project.save()
+        if projects_to_reassign.exists() or issues_to_reassign.exists():
+            new_author = None
+            new_issue_author = False
 
-        for issue in issues_to_reassign:
-            if issue.project.author != user:
-                issue.author = issue.project.author
-                print(issue.author)
-                new_issue_author = True
-                issue.save()
-            else:
+            for project in projects_to_reassign:
+                new_author = Contributor.objects.filter(
+                    project=project, role="CONTRIBUTOR"
+                ).first()
                 if new_author:
-                    issue.author = new_author.user
-                    issue.save()
+                    new_author.role = "AUTHOR"
+                    new_author.save()
+                    project.author = new_author.user
+                    project.save()
 
-        if new_author or new_issue_author:
-            user.date_of_birth = None
-            user.can_be_contacted = False
-            user.can_data_be_shared = False
-            user.is_active = False
-            user.save()
-            return Response(
-                "Profile soft deleted, new author assigned",
-                status=status.HTTP_204_NO_CONTENT,
-            )
-        else:
+            for issue in issues_to_reassign:
+                if issue.project.author != user:
+                    issue.author = issue.project.author
+                    new_issue_author = True
+                    issue.save()
+                else:
+                    if new_author:
+                        issue.author = new_author.user
+                        issue.save()
+
+            if new_author or new_issue_author:
+                user.save()
+                return Response(
+                    "Profile soft deleted, new author assigned",
+                    status=status.HTTP_204_NO_CONTENT,
+                )
             return Response(
                 "You must define a new contributor before deleting the user",
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        user.save()
+        return Response(
+            "Profile soft deleted",
+            status=status.HTTP_204_NO_CONTENT,
+        )
